@@ -57,7 +57,7 @@ def Lpcalc(d,f,c):
     return Lp
 
 
-for i in [1.35, 8.3, 30.]:          #This is the list with gains you can change accordingly
+for i in [5.]:          #This is the list with gains you can change accordingly
     SNR  = 9.5          #[dB]       #All input parameter that are kept the same over-
 #    Pt   = 4.0          #[W]       #- all different calculations.
     Gt   = i           #[dBi]
@@ -65,10 +65,10 @@ for i in [1.35, 8.3, 30.]:          #This is the list with gains you can change 
     d    = 900.         #[km]
     f    = 2.2*10**9   #[Hz]
     Ts   = 1250.        #[K]
-     #dant = 0.09        #[m]
+    #dant = 0.09        #[m]
     Bw   = 25000        #[HZ]
 
-    Rl   = 12000       #[bit/s]     #Data rates can be altered as well
+    Rl   = 20000       #[bit/s]     #Data rates can be altered as well
     Rm   = 250000       #[bit/s]
     Rh   = 1000000       #[bit/s]
     
@@ -112,6 +112,7 @@ for i in [1.35, 8.3, 30.]:          #This is the list with gains you can change 
     
     print("")
 
+'''
 c    = 299792458.0       #[m/s]
 Freqlst = np.arange(0.03,30.,0.1)
 
@@ -139,7 +140,7 @@ plt.grid()
 plt.show()
 
 
-
+'''
 
 
 '''
