@@ -47,4 +47,11 @@ cod5 = [ ' Convulational-RS', 0.166667, 9 ]
 cod6 = [ 'TURBO', 0.166667, 10 ]
 cod7 = [ 'LDPC', 0.75, 10 ]
 
+
+codlst = [ cod1, cod2, cod3, cod4,cod5,cod6,cod7]
 #for i in range(len(caselst)):
+
+
+
+
+
