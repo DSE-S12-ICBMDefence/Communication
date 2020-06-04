@@ -17,7 +17,7 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     txAntennaGain = rxAntennaGain   # gain in dB
     polarizationLoss = 0.           # losses in dB
     transmitterLosses = 1.2         # losses in dB
-    outputPower = 2.                # power in W
+    outputPower = 3.                # power in W
     SystemNoiseTemp = 1228          # System noise temperature in Kelvin
     GoverT = rxAntennaGain-(10*np.log10(SystemNoiseTemp)) # rx G/T in dB
     EbN0threshold = EbN0mod-CodeGain # Eb/N0 threshold for modulation + code with BER = 10^-6
@@ -43,7 +43,7 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     
     # full link budget including link margin
     margin = EbN0 - EbN0threshold - implementationLoss - linkMargin
-    return margin
+    return margin, bitrate
 
 
 
@@ -83,31 +83,35 @@ modlst = [mod1,mod2,mod3]
 
 # Coding = [ type, rate, gain]
 cod1 = [ 'No coding', 1, 0]
-cod2 = [ ' Convulational1', 0.5, 5 ]
-cod3 = [ ' Convulational2', 0.5, 6 ]
-cod4 = [ ' Convulational-RS', 0.5, 7 ]
-cod5 = [ ' Convulational-RS', 0.166667, 9 ]
+cod2 = [ 'Convulational1', 0.5, 5 ]
+cod3 = [ 'Convulational2', 0.5, 6 ]
+cod4 = [ 'Convulational-RS', 0.5, 7 ]
+cod5 = [ 'Convulational-RS', 0.166667, 9 ]
 cod6 = [ 'TURBO', 0.166667, 10 ]
 cod7 = [ 'LDPC', 0.75, 10 ]
 
 
 codlst = [ cod1, cod2, cod3, cod4,cod5,cod6,cod7]
 count = 0
-for i in range(4):
+for i in range(5):
     for j in range(len(modlst)):
         for k in range(len(codlst)):
             Freq, Bandwidth, AntennaGain = caselst[i]
             Modtype, SE, EbN0mod = modlst[j]
             Codetype, Coderate, CodeGain = codlst[k]
-            Margin = LinkMarginCalc(Freq, AntennaGain, EbN0mod, CodeGain)
+            Margin, Bitrate = LinkMarginCalc(Freq, AntennaGain, EbN0mod, CodeGain)
             
-            if Margin > 0.:
+            MaxBitrate = SE*Bandwidth
+            Usedbitrate = Bitrate/Coderate
+                        
+            if Margin > 0. and Usedbitrate < MaxBitrate:
                 print("Link closed with margin of: ",np.round(Margin,3))
                 print("Link properties:")
                 print("Frequency: ",np.round(Freq*(10**(-9)),3),"[GHz]")
                 print("Antenna gain: ",AntennaGain)
                 print("Modulation technique: ",Modtype)
                 print("Error correction code: ",Codetype)
+                print("Spectral efficiency used of allowed: ",np.round(Usedbitrate/Bandwidth,2),"[bit/s/Hz] of ",SE,"[bit/s/Hz]")
                 print("")
                 print("")
                 count = count + 1
