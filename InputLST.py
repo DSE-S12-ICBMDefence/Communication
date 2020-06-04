@@ -40,11 +40,11 @@ modlst = [mod1,mod2,mod3]
 
 # Coding = [ type, rate, gain]
 cod1 = [ 'No coding', 1, 0]
-cod1 = [ ' Convulational1', 0.5, 5 ]
-cod1 = [ ' Convulational2', 0.5, 6 ]
-cod1 = [ ' Convulational-RS', 0.5, 7 ]
-cod1 = [ ' Convulational-RS', 0.166667, 9 ]
-cod1 = [ 'TURBO', 0.166667, 10 ]
-cod1 = [ 'LDPC', 0.75, 10 ]
+cod2 = [ ' Convulational1', 0.5, 5 ]
+cod3 = [ ' Convulational2', 0.5, 6 ]
+cod4 = [ ' Convulational-RS', 0.5, 7 ]
+cod5 = [ ' Convulational-RS', 0.166667, 9 ]
+cod6 = [ 'TURBO', 0.166667, 10 ]
+cod7 = [ 'LDPC', 0.75, 10 ]
 
 #for i in range(len(caselst)):
