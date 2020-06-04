@@ -11,19 +11,19 @@ import numpy as np
 kb = 1.3807e-23
 c = 2.998e8
 
-distance = 500                  # Distance between satellites
-freq = 2.2                      # Frequency in GHz
-lamb = c/(freq*10**9)           # wavelenght in meters
-rxAntennaGain = 5.              # gain in dB
+distance = 1000000               # Distance between satellites in meters
+freq = 2.2e9                     # Frequency in GHz
+lamb = c/(freq)                 # wavelenght in meters
+rxAntennaGain = 5.             # gain in dB
 txAntennaGain = 5.              # gain in dB
 polarizationLoss = 0.           # losses in dB
 transmitterLosses = 1.2         # losses in dB
 outputPower = 0.1               # power in dBW
-GoverT = 19.                    # rx G/T in dB
-EbN0threshold = 2.5             # Eb/N0 threshold for concatenated code + BPSK with BER = 10^-6
+GoverT = 0.144                   # rx G/T in dB
+EbN0threshold = 10.4             # Eb/N0 threshold for concatenated code + BPSK with BER = 10^-6
 implementationLoss = 1.         # value in dB
 receiverLosses = 2.             # losses in dB
-bitrate = 20e3                  # bitrate in bit/s
+bitrate = 20e3                   # bitrate in bit/s
 linkMargin = 3.                 # link margin in dB
 
 #Free space loss
@@ -43,3 +43,5 @@ EbN0 = SNR - 10*np.log10(bitrate)
 
 # full link budget including link margin
 margin = EbN0 - EbN0threshold - implementationLoss - linkMargin
+
+print("margin =",margin)
