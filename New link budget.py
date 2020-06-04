@@ -11,26 +11,26 @@ import numpy as np
 kb = 1.3807e-23
 c = 2.998e8
 
-distance = 900000              # Distance between satellites in meters
+distance = 900000               # Distance between satellites in meters
 freq = 2.2e9                    # Frequency in GHz
 lamb = c/(freq)                 # wavelenght in meters
 rxAntennaGain = 5.              # gain in dB
 txAntennaGain = 5.              # gain in dB
 polarizationLoss = 0.           # losses in dB
 transmitterLosses = 1.2         # losses in dB
-outputPower = 3.                # power in dBW
+outputPower = 2.                # power in W
 SystemNoiseTemp = 1228          # System noise temperature in Kelvin
 GoverT = rxAntennaGain-(10*np.log10(SystemNoiseTemp)) # rx G/T in dB
-EbN0threshold = 2.5            # Eb/N0 threshold for concatenated code + BPSK with BER = 10^-6
-implementationLoss = 1.         # value in dB
+EbN0threshold = 2.5             # Eb/N0 threshold for concatenated code + BPSK with BER = 10^-6
+implementationLoss = 1.         # Losses in dB
 receiverLosses = 2.             # losses in dB
 bitrate = 20e3                  # bitrate in bit/s
-linkMargin = 3.                  # link margin in dB
+linkMargin = 3.                 # link margin in dB
 
 #Free space loss
 freeSpace = 20*np.log10(4 * np.pi * distance/lamb)
 # Signal transmitted by antenna
-txSignal = outputPower - transmitterLosses + txAntennaGain
+txSignal = 10*np.log10(outputPower) - transmitterLosses + txAntennaGain
 # Signal received by antenna
 rxSignal = txSignal - freeSpace - polarizationLoss - receiverLosses
 # Signal received at the antenna port
