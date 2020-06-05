@@ -57,6 +57,7 @@ case4 = [2.4e9, 6e6 , 8.]
 
 #UHF
 case5 = [500e6, 50e3 , 1.5]
+case55 = [500e6, 50e3 , 0.]
 case6 = [500e6, 50e3 , 5.]
 case7 = [500e6, 50e3 , 8.]
 ## xband
@@ -68,8 +69,8 @@ case11 = [10e9, 100e6 , 5.]
 case12 = [10e9, 100e6 , 6.5]
 case13 = [10e9, 100e6 , 8.]
 
-
-caselst = [case1, case2, case3, case4, case5, case6, case7, case8, case9, case10, case11, case12, case13]
+caselst = [case55]
+#caselst = [case1, case2, case3, case4, case5, case6, case7, case8, case9, case10, case11, case12, case13]
 
 # Modulation schemes:
 
