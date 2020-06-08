@@ -11,14 +11,18 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     # Boltzmann constant and speed of light
     kb = 1.3807e-23
     c = 2.998e8
+    T0 = 290.
     
-    distance = 900000               # Distance between satellites in meters
+    distance = 900e3                # Distance between satellites in meters
     lamb = c/(freq)                 # wavelenght in meters
     txAntennaGain = rxAntennaGain   # gain in dB
     polarizationLoss = 0.           # losses in dB
     transmitterLosses = 1.2         # losses in dB
     outputPower = 2.                # power in W
-    SystemNoiseTemp = 1228          # System noise temperature in Kelvin
+    Ta = 790.                       # Antenna noise temperature in K
+    L = 0.9                         # Cable length in meters
+    F = 4.0                         # Noise figure of transceiver in dB
+    SystemNoiseTemp = Ta + T0*((1-L)/L) + T0*(10**(F/10)-1) # System noise temperature in Kelvin
     GoverT = rxAntennaGain-(10*np.log10(SystemNoiseTemp)) # rx G/T in dB
     EbN0threshold = EbN0mod-CodeGain # Eb/N0 threshold for modulation + code with BER = 10^-6
     implementationLoss = 1.         # Losses in dB
@@ -43,7 +47,7 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     
     # full link budget including link margin
     margin = EbN0 - EbN0threshold - implementationLoss - linkMargin
-    return margin, bitrate, outputPower
+    return margin, bitrate, outputPower, SystemNoiseTemp
 
 
 
@@ -69,7 +73,7 @@ case11 = [10e9, 100e6 , 5.]
 case12 = [10e9, 100e6 , 6.5]
 case13 = [10e9, 100e6 , 8.]
 
-caselst = [case55]
+caselst = [case2, case3, case55]
 #caselst = [case1, case2, case3, case4, case5, case6, case7, case8, case9, case10, case11, case12, case13]
 
 # Modulation schemes:
@@ -92,7 +96,9 @@ cod6 = [ 'TURBO', 0.166667, 10 ]
 cod7 = [ 'LDPC', 0.75, 10 ]
 
 
-codlst = [ cod1, cod2, cod3, cod4,cod5,cod6,cod7]
+#codlst = [ cod1, cod2, cod3, cod4,cod5,cod6,cod7]
+codlst = [ cod1, cod2, cod3, cod4, cod5]
+
 count = 0
 for i in range(len(caselst)):
     for j in range(len(modlst)):
@@ -100,7 +106,7 @@ for i in range(len(caselst)):
             Freq, MaxBandwidth, AntennaGain = caselst[i]
             Modtype, SE, EbN0mod = modlst[j]
             Codetype, Coderate, CodeGain = codlst[k]
-            Margin, Bitrate, OutputPower = LinkMarginCalc(Freq, AntennaGain, EbN0mod, CodeGain)
+            Margin, Bitrate, OutputPower, SystemNoiseTemp = LinkMarginCalc(Freq, AntennaGain, EbN0mod, CodeGain)
             
             InfoBandwidth = Bitrate/SE
             TotalBandwidth = InfoBandwidth/Coderate
@@ -116,4 +122,6 @@ for i in range(len(caselst)):
                 print("")
                 count = count + 1
                 
-print("Number of budgets closed: ",count)           
+print("Number of budgets closed:",count,"of a total of",(len(caselst)*len(modlst)*len(codlst)),"budgets tested")
+print("")
+print("System noise temperature = ",np.round(SystemNoiseTemp,3),"K")           
