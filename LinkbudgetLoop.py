@@ -13,12 +13,12 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     c = 2.998e8
     T0 = 290.
     
-    distance = 900e3                # Distance between satellites in meters
+    distance = 1200e3                # Distance between satellites in meters
     lamb = c/(freq)                 # wavelenght in meters
     txAntennaGain = rxAntennaGain   # gain in dB
     polarizationLoss = 0.           # losses in dB
     transmitterLosses = 1.2         # losses in dB
-    outputPower = 2.                # power in W
+    outputPower = 3.5                # power in W
     Ta = 790.                       # Antenna noise temperature in K
     L = 0.9                         # Cable length in meters
     F = 4.0                         # Noise figure of transceiver in dB
@@ -62,6 +62,7 @@ case4 = [2.4e9, 6e6 , 8.]
 #UHF
 case5 = [500e6, 50e3 , 1.5]
 case55 = [500e6, 50e3 , 0.]
+case52 = [500e6, 30e3,0.]
 case6 = [500e6, 50e3 , 5.]
 case7 = [500e6, 50e3 , 8.]
 ## xband
@@ -73,7 +74,7 @@ case11 = [10e9, 100e6 , 5.]
 case12 = [10e9, 100e6 , 6.5]
 case13 = [10e9, 100e6 , 8.]
 
-caselst = [case2, case3, case55]
+caselst = [case55]
 #caselst = [case1, case2, case3, case4, case5, case6, case7, case8, case9, case10, case11, case12, case13]
 
 # Modulation schemes:
