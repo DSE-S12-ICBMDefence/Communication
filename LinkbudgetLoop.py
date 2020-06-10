@@ -13,7 +13,7 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     c = 2.998e8
     T0 = 290.
     
-    distance = 1200e3                # Distance between satellites in meters
+    distance = 1300e3                # Distance between satellites in meters
     lamb = c/(freq)                 # wavelenght in meters
     txAntennaGain = rxAntennaGain   # gain in dB
     polarizationLoss = 0.           # losses in dB
@@ -61,7 +61,7 @@ case4 = [2.4e9, 6e6 , 8.]
 
 #UHF
 case5 = [500e6, 50e3 , 1.5]
-case55 = [500e6, 50e3 , 0.]
+case55 = [400e6, 50e3 , 0.]
 case52 = [500e6, 30e3,0.]
 case6 = [500e6, 50e3 , 5.]
 case7 = [500e6, 50e3 , 8.]
@@ -83,7 +83,7 @@ caselst = [case55]
 
 mod1 = ['BPSK', 0.7 , 10.5 ]
 mod2 = ['QPSK', 1.4 , 10.5 ]
-mod3 = ['8-PSK', 2.1, 14   ]
+mod3 = ['8-PSK', 2.1, 14.   ]
 
 modlst = [mod1,mod2,mod3]
 
