@@ -12,12 +12,12 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     c = 2.998e8
     T0 = 290.
     
-    distance = 2400e3               # Distance between satellites in meters
+    distance = 1900e3               # Distance between satellites in meters
     lamb = c/(freq)                 # wavelenght in meters
-    txAntennaGain = 0.   # gain in dB
+    txAntennaGain = 5.              # gain in dB
     polarizationLoss = 0.           # losses in dB
     transmitterLosses = 1.2         # losses in dB
-    outputPower = 0.5               # power in W
+    outputPower = 2.0               # power in W
     Ta = 790.                       # Antenna noise temperature in K
     L = 0.9                         # Cable length in meters
     F = 4.0                         # Noise figure of transceiver in dB
@@ -26,7 +26,7 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     EbN0threshold = EbN0mod-CodeGain # Eb/N0 threshold for modulation + code with BER = 10^-6
     implementationLoss = 1.         # Losses in dB
     receiverLosses = 2.             # losses in dB
-    bitrate = 20e3                  # bitrate in bit/s
+    bitrate = 1000e3                  # bitrate in bit/s
     linkMargin = 3.                 # link margin in dB
     
     #Free space loss
@@ -48,7 +48,7 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     margin = EbN0 - EbN0threshold - implementationLoss - linkMargin
     return margin, bitrate, outputPower, SystemNoiseTemp          
 
-case1 = [400e6, 50e3, 15.]
+case1 = [2.2e9, 6e6, 31.]
 
 mod1  = ['QPSK', 1.4 , 10.5 ]
 
