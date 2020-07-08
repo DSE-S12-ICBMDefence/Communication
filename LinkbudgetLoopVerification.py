@@ -23,7 +23,7 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     EbN0threshold = EbN0mod-CodeGain # Eb/N0 threshold for modulation + code with BER = 10^-6
     implementationLoss = 0.         # Losses in dB
     receiverLosses = 1.             # losses in dB
-    bitrate = 10e6                  # bitrate in bit/s
+    bitrate = 12.5e6                  # bitrate in bit/s
     linkMargin = 3.                 # link margin in dB
     
     #Free space loss
