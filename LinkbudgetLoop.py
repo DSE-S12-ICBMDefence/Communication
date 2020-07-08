@@ -13,16 +13,16 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     c = 2.998e8
     T0 = 290.
     
-    distance = 1300e3               # Distance between satellites in meters
+    distance = 500e3               # Distance between satellites in meters
     lamb = c/(freq)                 # wavelenght in meters
     txAntennaGain = rxAntennaGain   # gain in dB
     polarizationLoss = 0.           # losses in dB
     transmitterLosses = 1.2         # losses in dB
     outputPower = 3.5               # power in W
-    Ta = 790.                       # Antenna noise temperature in K
+    Ta = 150.                       # Antenna noise temperature in K
     L = 0.9                         # Cable length in meters
-    F = 4.0                         # Noise figure of transceiver in dB
-    SystemNoiseTemp = Ta + T0*((1-L)/L) + T0*(10**(F/10)-1) # System noise temperature in Kelvin
+    F = 0.60698                         # Noise figure of transceiver in dB
+    SystemNoiseTemp = Ta + T0*((1-L)/(L)) + T0*(10**(F/10)-1) # System noise temperature in Kelvin
     GoverT = rxAntennaGain-(10*np.log10(SystemNoiseTemp)) # rx G/T in dB
     EbN0threshold = EbN0mod-CodeGain # Eb/N0 threshold for modulation + code with BER = 10^-6
     implementationLoss = 1.         # Losses in dB
@@ -32,6 +32,7 @@ def LinkMarginCalc(freq,rxAntennaGain,EbN0mod,CodeGain):
     
     #Free space loss
     freeSpace = 20*np.log10(4 * np.pi * distance/lamb)
+    print("free space loss: ",freeSpace)
     # Signal transmitted by antenna
     txSignal = 10*np.log10(outputPower) - transmitterLosses + txAntennaGain
     # Signal received by antenna
@@ -61,7 +62,7 @@ case4 = [2.4e9, 6e6 , 8.]
 
 #UHF
 case5 = [500e6, 50e3 , 1.5]
-case55 = [400e6, 50e3 , 0.]
+case55 = [1000e6, 50e3 , 0.]
 case52 = [500e6, 30e3,0.]
 case6 = [500e6, 50e3 , 5.]
 case7 = [500e6, 50e3 , 8.]
@@ -82,10 +83,11 @@ caselst = [case55]
 #modulation = [type, Spectral Efficency, Eb/No for given BER ]
 
 mod1 = ['BPSK', 0.7 , 10.5 ]
-mod2 = ['QPSK', 1.4 , 10.5 ]
+mod2 = ['QPSK', 1.4 , 11.5 ]
 mod3 = ['8-PSK', 2.1, 14.   ]
 
-modlst = [mod1,mod2,mod3]
+modlst = [mod2]
+#modlst = [mod1,mod2,mod3]
 
 # Coding = [ type, rate, gain]
 cod1 = [ 'No coding', 1, 0]
@@ -98,7 +100,7 @@ cod7 = [ 'LDPC', 0.75, 10 ]
 
 
 #codlst = [ cod1, cod2, cod3, cod4,cod5,cod6,cod7]
-codlst = [ cod1, cod2, cod3, cod4, cod5]
+codlst = [cod3]
 
 count = 0
 for i in range(len(caselst)):
